@@ -27,9 +27,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 SECRET_KEY = 'django-insecure-x$x5@m44ps&%b4^$(kkrd$s866sc#t-ysu3&==7z_()vsfq8-x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https/', 'localhost' '127.0.0.1']
+
+# Render sets this automatically
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -100,6 +107,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <--- WhiteNoise
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -113,7 +121,7 @@ FRONTEND_BASE_URL = "http://localhost:8080"
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:8080",]
 
-CSRF_TRUSTED_ORIGINS = CORS_ALLOWED_ORIGINS
+CSRF_TRUSTED_ORIGINS = [f"https://{RENDER_EXTERNAL_HOSTNAME}"] if RENDER_EXTERNAL_HOSTNAME else []
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -139,14 +147,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'kpfa_db',
-        'USER': 'postgres',
-        'PASSWORD': '5chap@Psql',
-        'HOST': 'localhost',
-        'PORT': '5432', 
-        } 
+     "default": dj_database_url.config(
+        default=f"postgres://postgres:5chap@Psql@localhost:5432/kpfa_db",
+        conn_max_age=600,
+        ssl_require=True
+    )
     }
 
 
@@ -195,6 +200,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 import os
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Static files (WhiteNoise)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Base site URL for emails and absolute references
 SITE_URL = "http://127.0.0.1:8000"
