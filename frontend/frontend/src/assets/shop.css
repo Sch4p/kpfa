@@ -1,0 +1,32 @@
+/* src/assets/shop.css */
+.shop-card {
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(20,20,30,0.06);
+}
+.shop-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(20,20,30,0.12);
+}
+.shop-img {
+  height: 220px;
+  object-fit: cover;
+  width: 100%;
+}
+.price-badge {
+  background: linear-gradient(90deg,#8b0000,#c03a3a);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}

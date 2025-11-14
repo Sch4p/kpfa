@@ -1,0 +1,74 @@
+[
+  {
+    "model": "kpfa.country",
+    "pk": 250,
+    "fields": {
+      "name": "Republic of Niger",
+      "code": "NE"
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25001,
+    "fields": {
+      "name": "Agadez Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25002,
+    "fields": {
+      "name": "Diffa Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25003,
+    "fields": {
+      "name": "Dosso Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25004,
+    "fields": {
+      "name": "Maradi Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25005,
+    "fields": {
+      "name": "Tahoua Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25006,
+    "fields": {
+      "name": "Tillabéri Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25007,
+    "fields": {
+      "name": "Zinder Region",
+      "country": 250
+    }
+  },
+  {
+    "model": "kpfa.state",
+    "pk": 25008,
+    "fields": {
+      "name": "Niamey Capital District",
+      "country": 250
+    }
+  }
+]

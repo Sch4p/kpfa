@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Receipt - KPFA Store for Sports Merchandise</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      border: 1px solid #e5e5e5;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .header img {
+      height: 70px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 22px;
+      color: #1c1c1c;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f8f8f8;
+    }
+    .total {
+      text-align: right;
+      font-weight: bold;
+    }
+    .footer {
+      border-top: 1px solid #e5e5e5;
+      padding-top: 15px;
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      {% if academy_logo_url %}
+        <img src="{{ academy_logo_url }}" alt="Academy Logo">
+      {% endif %}
+      <h1>{{ academy_name }} — Order Receipt</h1>
+    </div>
+
+    <p>Hello {{ order.user.get_full_name|default:order.email }},</p>
+    <p>Thank you for your purchase! Below are your order details:</p>
+
+    <table>
+      <tr>
+        <th>Order ID</th>
+        <td>#{{ order.id }}</td>
+      </tr>
+      <tr>
+        <th>Date</th>
+        <td>{{ order.created_at|date:"F j, Y, g:i a" }}</td>
+      </tr>
+      <tr>
+        <th>Payment Method</th>
+        <td>{{ order.payment_method }}</td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td>{{ order.status }}</td>
+      </tr>
+    </table>
+
+    <h3>Items Ordered</h3>
+    <table>
+      <tr>
+        <th>Item</th>
+        <th>Unit Price</th>
+        <th>Qty</th>
+        <th>Subtotal</th>
+      </tr>
+      {% for item in order_items %}
+      <tr>
+        <td>{{ item.item.name }}</td>
+        <td>₦{{ item.item.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>₦{{ item.item.price|floatformat:2|add:item.quantity }}</td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td colspan="3" class="total">Total</td>
+        <td class="total">₦{{ order.total_amount }}</td>
+      </tr>
+    </table>
+
+    <p><strong>Shipping Address:</strong><br>{{ order.shipping_address }}</p>
+    {% if order.notes %}
+      <p><strong>Notes:</strong><br>{{ order.notes }}</p>
+    {% endif %}
+
+    <div class="footer">
+      <p>{{ academy_name }} | {{ academy_address }}</p>
+      <p>For any inquiries, contact us at <a href="mailto:{{ academy_email }}">{{ academy_email }}</a></p>
+    </div>
+  </div>
+</body>
+</html>

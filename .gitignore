@@ -1,0 +1,51 @@
+# ===================
+# Python / Django
+# ===================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.env
+db.sqlite3
+*.sqlite3-journal
+*.coverage
+.coverage.*
+htmlcov/
+dist/
+build/
+media/
+
+# Django migrations
+*/migrations/*.py
+*/migrations/*.pyc
+!*/migrations/__init__.py
+
+# ===================
+# Node / Vue
+# ===================
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+dist/
+frontend/dist/
+
+# ===================
+# IDEs / Editors
+# ===================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+
+# ===================
+# OS files
+# ===================
+.DS_Store
+Thumbs.db
+S

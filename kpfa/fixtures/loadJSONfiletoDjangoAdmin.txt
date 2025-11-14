@@ -1,0 +1,1 @@
+python manage.py loaddata filename.json \\ To automatically load a json data file to Django admin
